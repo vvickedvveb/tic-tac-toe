@@ -1,11 +1,14 @@
+# !/usr/bin/python
+
+
 # Play Again
 # Enter either x or o --------------------- DONE
 # Enter pos ONLY -------------------------- DONE
 # Check empty ----------------------------- DONE
 # Check if picked already ----------------- DONE
-# Show chosen in message
+# Show chosen in message ------------------ DONE
 # add color to x/o ------------------------ DONE
-# Case ------------------------------------ DONE (FOR POS)
+# Case ------------------------------------ DONE
 # NO Winner ------------------------------- DONE
 # Predict last move ----------------------- DONE
 # Board should loop ----------------------- DONE
@@ -13,53 +16,55 @@
 # Put messages in dict
 # Time between moves
 # Total time to play
-# camelCase or sn_a_ke -------------------- DONE
+# camelCase or "sn_a_ke" ------------------ DONE
 # make x/o a dict
-# Tests
-# Put colors in class https://pkg.go.dev/github.com/whitedevops/colors#section-readme
+# Colors class https://pkg.go.dev/github.com/whitedevops/colors#section-readme
+# Ctrl + C to quit
 
 # Demonstrate a comprehension / 1 liner --- DONE
 # Demonstrate a lambda
 # Demonstrate classes --------------------- DONE
-# Improve class, private, dataclass etc...
+# Improve class, private, dataclass inherit ...
 # Demonstrate a ternary ------------------- DONE
 # Demonstrate itertools -----------
 # Demonstrate Try
+# Comments
+
+# TEST
+# self play
+# test wins
+
+# Play Computer
 
 # Is there better way to write this?
 
-import enum
-
-
 class TicTacToe:
     board_dict = { # The board
-        'tl': 1,
-        'tm': 2,
-        'tr': 3,
-        'ml': 4,
-        'mm': 5,
-        'mr': 6,
-        'bl': 7,
-        'bm': 8,
-        'br': 9
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+        '6': 6,
+        '7': 7,
+        '8': 8,
+        '9': 9
     }
 
     winning_combo = [ # Winning combinations
-        # tl - 1
-        ['tl', 'tm', 'tr'],
-        ['tl', 'ml', 'bl'],
-        ['tl', 'mm', 'br'],
-        # tm, mm - 2
-        ['tm', 'mm', 'bm'],
-        # tr - 3
-        ['tr', 'mm', 'bl'],
-        ['tr', 'mr', 'br'],
-        # ml - 4
-        ['ml', 'mm', 'mr'],
-        # mm == tm
-        # mr == tr & ml
-        # bl
-        ['bl', 'bm', 'br']
+        # top pos. 1
+        ['1', '2', '3'],
+        ['1', '4', '7'],
+        ['1', '5', '9'],
+        # top pos. 2
+        ['2', '5', '8'],
+        # top pos. 3
+        ['3', '5', '7'],
+        ['3', '6', '9'],
+        # mid. pos. 4
+        ['4', '5', '6'],
+        # bottom pos. 7
+        ['7', '8', '9']
     ]
 
     player_x = []
@@ -75,45 +80,33 @@ class TicTacToe:
     ttl_move_count = 0 # Total moves
     played_pos = [] # Positions filled
     winner = False
-    th_brd = ''
     board_pos = ''
 
     # TODO: args kwargs?
-    def __init__(self,):
+    def __init__(self, ):
         pass
 
-    def the_board(self):
-        def _ret_color(board_pos):
-            # TODO: determine if ok?
-            if board_pos == 'X':
-                the_color = '\033[33m'
-            elif board_pos == 'O':
-                the_color = '\033[36m'
-            else:
-                the_color = '\033[37m'
+    def __ret_color(self, board_pos):
+        # TODO: determine if ok?
+        if board_pos == 'X':
+            the_color = '\033[33m'
+        elif board_pos == 'O':
+            the_color = '\033[36m'
+        else:
+            the_color = '\033[37m'
+        return the_color
 
-            return the_color
-
+    def the_board(self, ):
+        def __the_board_xo(board_pos):
+            return '| ' + self.__ret_color(board_pos) + str(board_pos) + '\033[0m' + ' |'
 
         """ Print out the board. """
         pr_board = ''
         the_board_xo = ''
-        #the_color = ''
-        """ for ct, board_pos in enumerate(self.board_dict.values(), start=1):
-            pr_board += '| ' + _ret_color(board_pos, ) + str(board_pos) + '\033[0m' + ' |'
-            # TODO: exception
-            if ct % 3 == 0:
-                pr_board += '\n' """
 
-        def _the_board_xo(board_pos):
-            return '| ' + _ret_color(board_pos, ) + str(board_pos) + '\033[0m' + ' |'
-
-        for ct, board_pos in enumerate(self.board_dict.values(), start=1): pr_board += _the_board_xo(board_pos) + '\n' if ct % 3 == 0 else _the_board_xo(board_pos)
-
-        #self.th_brd = ['| ' + _ret_color(self.board_pos ) + str(self.board_pos) + '\033[0m' + ' |' for ct, self.board_pos in enumerate(self.board_dict.values(), start=1)]
+        for ct, board_pos in enumerate(self.board_dict.values(), start=1): pr_board += __the_board_xo(board_pos) + '\n' if ct % 3 == 0 else __the_board_xo(board_pos)
 
         return pr_board
-
 
     def start(self, ):
         if self.player_turn == None:
@@ -121,6 +114,7 @@ class TicTacToe:
             enter_x_o = input(input_text)
             enter_x_o = enter_x_o.upper()
 
+            # Exit the game
             if enter_x_o == 'Q':
                 return 'break'
 
@@ -133,33 +127,34 @@ class TicTacToe:
         return self.player_turn
 
     def move(self):
+        def __last_move(self, ):
+            """ Determine the last move """
+            board_keys_set = set(self.board_dict.keys())
+            played_pos_set = set(self.played_pos)
+            last_move = board_keys_set.difference(played_pos_set)
+            last_move = next(iter(last_move))
+            return str(last_move)
+
+
         if self.player_turn.upper() == 'X':
             input_text = "for player 'X': "
         else:
             input_text = "for player 'O': "
 
-        # Make last move
-        if self.ttl_move_count == 8 and not self.winner:
-            # Compare
-            # TODO: private
-            board_keys_set = set(self.board_dict.keys())
-            played_pos_set = set(self.played_pos)
-            last_move = board_keys_set.difference(played_pos_set)
-            last_move = next(iter(last_move))
-            enter_pos = str(last_move)
+        if self.ttl_move_count == 8 and not self.winner: # Last move
+            enter_pos =__last_move()
         else:
-            enter_pos = input(f"""Enter position
-            (tl tm tr)
-            (ml mm mr)
-            (bl bm br) {input_text}""")
+            enter_pos = input(f"""Enter position [1 - 9] {input_text}""")
 
             # Enter only positions on board
+            print(type(self.board_dict.keys()))
+            print('enter_pos: ', enter_pos)
             if enter_pos not in self.board_dict.keys():
                 print('\033[93m' + 'Please enter position' + '\033[0m')
                 return 'continue'
 
             if enter_pos in self.played_pos:
-                print(f"Postion {enter_pos} already played")
+                print(f'Postion {enter_pos} already played')
                 return 'continue'
 
         # Register position
@@ -171,29 +166,46 @@ class TicTacToe:
 
     def determine_win(self, ):
         for combo in self.winning_combo:
-            #print("combo: ", combo)
             for el in combo:
-                #print('el: ', board_dict[el], el)
                 if self.board_dict[el] == self.player_turn: # 'X' or 'O'
                     self.win_row_count += 1
-                    #print("board_dict[el]: ", el, board_dict[el], win_row_count)
-                    #print("win_row_count: ", win_row_count)
-                    #print(board_dict[el])
             if self.win_row_count == 3:
                 print('\033[92m' + "WINNER is " + self.player_turn.upper() + '\033[0m')
                 self.winner = True
-                break
             self.win_row_count = 0
-
-        if self.winner:
-            return 'break'
 
     def turn(self):
         """ Switch user turn """
         self.player_turn = 'O' if self.player_turn == 'X' else 'X'
 
     def main(self):
+        """ void main() """
         while True:
+            if self.winner:
+                play_again = input("Play Again? ('Y'/'N'): ")
+                if play_again.upper() == 'Y':
+                    # TODO: make a func, keep player turn
+                    #player_turn = None
+                    self.win_row_count = 0
+                    self.ttl_move_count = 0
+                    self.played_pos = []
+                    self.winner = False
+                    self.board_pos = ''
+                    self.board_dict = {
+                        '1': 1,
+                        '2': 2,
+                        '3': 3,
+                        '4': 4,
+                        '5': 5,
+                        '6': 6,
+                        '7': 7,
+                        '8': 8,
+                        '9': 9
+                    }
+                    continue
+                else:
+                    break
+
             the_board = ttt.the_board()
             print(the_board)
 
@@ -211,10 +223,11 @@ class TicTacToe:
             if br_con == 'break':
                 break
 
-            ttt.turn()
+            if not self.winner:
+                ttt.turn()
 
-    def repr(self):
-        return f"{self.th_brd}"
+    """ def repr(self):
+        return f"{}" """
 
 
 # Game play
