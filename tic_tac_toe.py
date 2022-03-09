@@ -1,7 +1,7 @@
 # !/usr/bin/python
 
 
-# Play Again
+# Play Again ------------------------------ DONE
 # Enter either x or o --------------------- DONE
 # Enter pos ONLY -------------------------- DONE
 # Check empty ----------------------------- DONE
@@ -33,6 +33,12 @@
 # TEST
 # self play
 # test wins
+# 8 moves
+'''
+| X || O || X |
+| X || X || O |
+| O || 8 || O |
+'''
 
 # Play Computer
 
@@ -127,14 +133,13 @@ class TicTacToe:
         return self.player_turn
 
     def move(self):
-        def __last_move(self, ):
+        def __last_move():
             """ Determine the last move """
             board_keys_set = set(self.board_dict.keys())
             played_pos_set = set(self.played_pos)
             last_move = board_keys_set.difference(played_pos_set)
             last_move = next(iter(last_move))
             return str(last_move)
-
 
         if self.player_turn.upper() == 'X':
             input_text = "for player 'X': "
@@ -205,6 +210,11 @@ class TicTacToe:
                     continue
                 else:
                     break
+
+
+            if self.ttl_move_count == 9 and not self.winner: # Last move
+                print('\nNo Winner!\n')
+                break
 
             the_board = ttt.the_board()
             print(the_board)
