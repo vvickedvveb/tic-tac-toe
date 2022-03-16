@@ -29,6 +29,7 @@
 - Demonstrate itertools -----------
 - Demonstrate Try
 - Comments
+- args / kwargs
 
 - TEST
 - self play

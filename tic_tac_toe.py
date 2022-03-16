@@ -12,7 +12,7 @@ class TicTacToe:
         '9': 9
     }
 
-    winning_combo = [ # Winning combinations
+    WINNING_COMBO = [ # Winning combinations
         # top pos. 1
         ['1', '2', '3'],
         ['1', '4', '7'],
@@ -28,22 +28,18 @@ class TicTacToe:
         ['7', '8', '9']
     ]
 
-    player_x = []
-    player_o = []
-    # make this a dict
-    player_XO = {
-        'playerX': None,
-        'playerY': None,
+    XO = {
+        'EX': 'X',
+        'OH': 'O'
     }
 
-    player_turn = None
+    player_turn = None # Who's playing
     win_row_count = 0 # need 3 to win
     ttl_move_count = 0 # Total moves
     played_pos = [] # Positions filled
-    winner = False
+    winner = False # True once 3 in row
     board_pos = ''
 
-    # TODO: args kwargs?
     def __init__(self, ):
         pass
 
@@ -58,10 +54,10 @@ class TicTacToe:
         return the_color
 
     def the_board(self, ):
+        """ Print out the board. """
         def __the_board_xo(board_pos):
             return '| ' + self.__ret_color(board_pos) + str(board_pos) + '\033[0m' + ' |'
 
-        """ Print out the board. """
         pr_board = ''
         the_board_xo = ''
 
@@ -125,7 +121,7 @@ class TicTacToe:
         return True
 
     def determine_win(self, ):
-        for combo in self.winning_combo:
+        for combo in self.WINNING_COMBO:
             for el in combo:
                 if self.board_dict[el] == self.player_turn: # 'X' or 'O'
                     self.win_row_count += 1
