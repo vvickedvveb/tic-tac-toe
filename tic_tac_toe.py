@@ -1,5 +1,6 @@
 # !/usr/bin/python
 
+# 2 player or computer
 
 # Play Again ------------------------------ DONE
 # Enter either x or o --------------------- DONE
@@ -20,6 +21,7 @@
 # make x/o a dict
 # Colors class https://pkg.go.dev/github.com/whitedevops/colors#section-readme
 # Ctrl + C to quit
+# Display board last move
 
 # Demonstrate a comprehension / 1 liner --- DONE
 # Demonstrate a lambda
