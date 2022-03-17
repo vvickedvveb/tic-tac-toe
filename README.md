@@ -1,11 +1,11 @@
-# Welcome to Vick's 2 Player  Tic Tac Toe!
+# Welcome to Vick's 2 Player Tic Tac Toe!
 
-Just a simple 2 player **Tac Tac Toe** game in Python.
+Just a simple 2 player **Tac Tac Toe** game in Python. Attempted to make without looking at others.
 
 ## Install
 *Create a virtual environment*
 ```shell
-python3.9 -m venv tic_tac_toe
+python3 -m venv tic_tac_toe
 ```
 
 *Enable environment*
@@ -15,12 +15,12 @@ source bin/activate
 
 *Run script*
 ```shell
-python tic_tac_toe.py
+python TicTacToe.py
 ```
 
 #### Rules
 - Open a terminal
 - Select '`x`' or '`o`' to start (case insensitive)
-- Enter the position ('`tl`', '`mm`', '`br`') for your turn
+- Enter the position (`1`, `2`, `3`...) for your turn
 
 # Enjoy!

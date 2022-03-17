@@ -1,5 +1,6 @@
 - 2 player or computer
 
+- Fix spacing output text
 - Play Again ------------------------------ DONE
 - Enter either x or o --------------------- DONE
 - Enter pos ONLY -------------------------- DONE
@@ -16,10 +17,10 @@
 - Time between moves
 - Total time to play
 - camelCase or "sn_a_ke" ------------------ DONE
-- make x/o a dict
+- make x/o a dict ------------------------- DONE
 - Colors class https://pkg.go.dev/github.com/whitedevops/colors-section-readme
-- Ctrl + C to quit
-- Display board last move
+- Ctrl + C to quit ------------------------ DONE
+- Display board last move ----------------- DONE
 
 - Demonstrate a comprehension / 1 liner --- DONE
 - Demonstrate a lambda
@@ -27,9 +28,10 @@
 - Improve class, private, dataclass inherit ...
 - Demonstrate a ternary ------------------- DONE
 - Demonstrate itertools -----------
-- Demonstrate Try
-- Comments
-- args / kwargs
+- Slice ?
+- Demonstrate Try ------------------------- DONE
+- Comments -------------------------
+- args / kwargs ??????????????????
 
 - TEST
 - self play
@@ -40,7 +42,5 @@
 | X || X || O |
 | O || 8 || O |
 '''
-
-- Play Computer
 
 - Is there better way to write this?
