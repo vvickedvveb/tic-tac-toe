@@ -23,7 +23,7 @@
 - Display board last move ----------------- DONE
 
 - Demonstrate a comprehension / 1 liner --- DONE
-- Demonstrate a lambda
+- Demonstrate a lambda ????
 - Demonstrate classes --------------------- DONE
 - Improve class, private, dataclass inherit ...
 - Demonstrate a ternary ------------------- DONE

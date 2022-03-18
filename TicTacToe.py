@@ -1,6 +1,10 @@
 # !/usr/bin/python
 
 import sys
+from TheMessages import TheMessages
+
+the_messages = TheMessages
+#print(mess)
 class TicTacToe:
     board_dict = { # The board
         '1': 1,
@@ -41,8 +45,8 @@ class TicTacToe:
     played_pos = [] # Positions filled
     winner = False # True once 3 in row
 
-    def __init__(self, ):
-        pass
+    def __init__(self, the_messages):
+        TheMessages = the_messages
 
     def the_board(self, ):
         """ Print out the board. """
@@ -56,8 +60,8 @@ class TicTacToe:
         """ Start the game by determining if 'X' or 'O' goes first. """
         if self.player_turn == None:
             self.__clr_scrn(2)
-            input_text = "Enter 'X' or 'O' to determine who goes first ('Q' to quit): "
-            enter_x_o = input(input_text)
+            #input_text = "Enter 'X' or 'O' to determine who goes first ('Q' to quit): "
+            enter_x_o = input(TheMessages.the_messages['enter_xo'])
             enter_x_o = enter_x_o.upper()
             if enter_x_o == 'Q': # Exit the game
                 return 'break'
@@ -93,7 +97,7 @@ class TicTacToe:
         # Register position
         self.board_dict[enter_pos] = self.player_turn
         self.played_pos.append(enter_pos)
-        self.ttl_move_count+=1
+        self.ttl_move_count += 1
         return True
 
     def determine_win(self, ):
@@ -201,6 +205,6 @@ class TicTacToe:
         return str(last_move)
 
 
-ttt = TicTacToe() # Start the game
+ttt = TicTacToe(the_messages) # Start the game
 if __name__ == '__main__':
     ttt.main()
