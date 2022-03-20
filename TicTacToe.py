@@ -3,8 +3,6 @@
 import sys
 from TheMessages import TheMessages
 
-the_messages = TheMessages
-#print(mess)
 class TicTacToe:
     board_dict = { # The board
         '1': 1,
@@ -45,8 +43,8 @@ class TicTacToe:
     played_pos = [] # Positions filled
     winner = False # True once 3 in row
 
-    def __init__(self, the_messages):
-        TheMessages = the_messages
+    def __init__(self, TheMessages):
+        self.messages = TheMessages
 
     def the_board(self, ):
         """ Print out the board. """
@@ -60,38 +58,37 @@ class TicTacToe:
         """ Start the game by determining if 'X' or 'O' goes first. """
         if self.player_turn == None:
             self.__clr_scrn(2)
-            #input_text = "Enter 'X' or 'O' to determine who goes first ('Q' to quit): "
-            enter_x_o = input(TheMessages.the_messages['enter_xo'])
+            enter_x_o = input(self.messages.get_message['enter_xo'])
             enter_x_o = enter_x_o.upper()
             if enter_x_o == 'Q': # Exit the game
                 return 'break'
 
             if enter_x_o not in self.XO.values():
-                print("You MUST enter either 'x' or 'o'!")
+                print(self.messages.get_message['must_xo'])
                 return 'continue'
 
             self.player_turn = enter_x_o.upper()
         return self.player_turn
 
     def move(self, ):
-        """  """
-        if self.ttl_move_count == 8 and not self.winner: # Last move
+        """ Enter & add position to place 'x'/'o' on board. """
+        if self.ttl_move_count == 8 and not self.winner: # Last move, we'll play
             enter_pos = self.__last_move()
         else:
             try:
-                enter_pos = input(f"""Enter position [1 - 9] for player '{self.player_turn}': """)
+                enter_pos = input(f"""{self.messages.get_message('magenta', 'enter_pos')} '{self.player_turn}': """)
             except KeyboardInterrupt:
-                print(f"\n\nGame has unexpected ended by player '{self.player_turn}'\n\n")
+                print(f"\n\n{self.messages.get_message['quit_game']} '{self.player_turn}'\n\n")
                 sys.exit(0)
 
             # Enter only positions on board
             if enter_pos not in self.board_dict.keys():
                 #self.__clr_scrn(1)
-                print('\033[93m' + 'Please enter position [1 - 9]' + '\033[0m')
+                print('\033[93m' + self.messages.get_message['again_pos'] + '\033[0m')
                 return 'continue'
 
             if enter_pos in self.played_pos:
-                print(f'Postion {enter_pos} already played')
+                print(f"{self.messages.get_message['position']} {enter_pos} {self.messages.get_message['played']}")
                 return 'continue'
 
         # Register position
@@ -107,14 +104,14 @@ class TicTacToe:
                 if self.board_dict[el] == self.player_turn:
                     self.win_row_count += 1
             if self.win_row_count == 3:
-                print('\033[92m' + "WINNER is " + self.player_turn.upper() + '\033[0m')
+                print(self.messages.get_message['winner'] + self.player_turn.upper() + '\033[0m')
                 self.winner = True
                 print(self.the_board())
             self.win_row_count = 0
         return
 
     def turn(self, ):
-        """ Switch user turn """
+        """ Switch turn's. """
         self.player_turn = self.XO['OH'] if self.player_turn == self.XO['EX'] else self.XO['EX']
         return self.player_turn
 
@@ -141,7 +138,7 @@ class TicTacToe:
         """ All methods required for gameplay flow. void main() """
         while True:
             if self.winner:
-                play_again = input("Play Again? ('Y'/'N'): ")
+                play_again = input(f"{self.messages.get_message['play_again']}")
                 if play_again.upper() == 'Y':
                     self.reset_game()
                     continue
@@ -205,6 +202,6 @@ class TicTacToe:
         return str(last_move)
 
 
-ttt = TicTacToe(the_messages) # Start the game
+ttt = TicTacToe(TheMessages) # Start the game
 if __name__ == '__main__':
     ttt.main()
