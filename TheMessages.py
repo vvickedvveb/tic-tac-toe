@@ -9,6 +9,8 @@ class TheMessages:
         'green':      '\u001b[32m',
         'green_back': '\u001b[42m',
 
+        'blue':       '\u001b[34m',
+
         'yellow':     '\u001b[33m',
 
         'magenta':    '\u001b[35m',
