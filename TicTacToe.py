@@ -35,7 +35,7 @@ class TicTacToe:
         ('7', '8', '9')
     ]
 
-    XO = { # Standard 2 player symbols
+    __XO = { # Standard 2 player symbols
         'EX': 'X',
         'OH': 'O'
     }
@@ -46,30 +46,34 @@ class TicTacToe:
     played_pos = [] # Positions filled
     winner = False # True once 3 in row
 
+
     def the_board(self, ):
         """ Print out the board. """
         def __the_board_xo(board_pos):
             return '| ' + self.__ret_color(board_pos) + str(board_pos) + '\033[0m' + ' |'
         pr_board = ''
+        #print( self.TheMessages.get_color( ['red', 'bold', 'underline'] ) )
         for ct, board_pos in enumerate(self.__board_dict.values(), start=1): pr_board += __the_board_xo(board_pos) + '\n' if ct % 3 == 0 else __the_board_xo(board_pos)
         return pr_board
+
 
     def start(self, ):
         """ Start the game by determining if 'X' or 'O' goes first. """
         if self.player_turn == None:
             #self.__clr_scrn(2)
-            text_input = self.TheMessages.get_message('yellow', 'enter_xo')
+            text_input = self.TheMessages.get_message(['clr_yellow'], 'enter_xo')
             enter_x_o = input(text_input)
             enter_x_o = enter_x_o.upper()
             if enter_x_o == 'Q': # Exit the game
                 return 'break'
 
-            if enter_x_o not in self.XO.values():
-                print(self.TheMessages.get_message('red', 'must_xo'))
+            if enter_x_o not in self.__XO.values():
+                print(self.TheMessages.get_message(['clr_red'], 'must_xo'))
                 return 'continue'
 
             self.player_turn = enter_x_o.upper()
         return self.player_turn
+
 
     def move(self, ):
         """ Enter & add position to place 'x'/'o' on board. """
@@ -77,19 +81,19 @@ class TicTacToe:
             enter_pos = self.__last_move()
         else:
             try:
-                enter_pos = input(f"""{self.TheMessages.get_message('magenta', 'enter_pos')} '{self.player_turn}': """)
+                enter_pos = input(f"""{self.TheMessages.get_message(['clr_magenta'], 'enter_pos')} '{self.player_turn}': """)
             except KeyboardInterrupt:
-                print(f"\n\n{self.TheMessages.get_message('magenta', 'quit_game')} '{self.player_turn}'\n\n")
+                print(f"\n\n{self.TheMessages.get_message(['clr_magenta'], 'quit_game')} '{self.player_turn}'\n\n")
                 sys.exit(0)
 
             # Enter only positions on board
             if enter_pos not in self.__board_dict.keys():
                 #self.__clr_scrn(1)
-                print(self.TheMessages.get_message('cyan', 'again_pos'))
+                print(self.TheMessages.get_message(['clr_cyan'], 'again_pos'))
                 return 'continue'
 
             if enter_pos in self.played_pos:
-                print(f"{self.TheMessages.get_message('red', 'position')} {enter_pos} {self.TheMessages.get_message('red', 'played')}")
+                print(f"{self.TheMessages.get_message(['clr_red'], 'position')} {enter_pos} {self.TheMessages.get_message(['clr_red'], 'played')}")
                 return 'continue'
 
         # Register position
@@ -98,6 +102,7 @@ class TicTacToe:
         self.ttl_move_count += 1
         return True
 
+
     def determine_win(self, ):
         """ Determine 3 in a row for win. """
         for combo in self.__WINNING_COMBO:
@@ -105,7 +110,7 @@ class TicTacToe:
                 if self.__board_dict[el] == self.player_turn:
                     self.win_row_count += 1
             if self.win_row_count == 3:
-                print(self.TheMessages.get_message('green', 'winner') + self.player_turn.upper() + '\033[0m')
+                print(self.TheMessages.get_message(['clr_green'], 'winner') + self.player_turn.upper() + '\033[0m')
                 self.winner = True
                 print(self.the_board())
             self.win_row_count = 0
@@ -113,8 +118,9 @@ class TicTacToe:
 
     def turn(self, ):
         """ Switch turn's. """
-        self.player_turn = self.XO['OH'] if self.player_turn == self.XO['EX'] else self.XO['EX']
+        self.player_turn = self.__XO['OH'] if self.player_turn == self.__XO['EX'] else self.__XO['EX']
         return self.player_turn
+
 
     def reset_game(self, ):
         """ New game. Keep winning player starts. """
@@ -135,11 +141,12 @@ class TicTacToe:
         }
         return True
 
+
     def main(self, ):
         """ All methods required for gameplay flow. void main() """
         while True:
             if self.winner:
-                play_again = input(f"{self.TheMessages.get_message('blue', 'play_again')}")
+                play_again = input(f"{self.TheMessages.get_message(['clr_blue'], 'play_again')}")
                 if play_again.upper() == 'Y':
                     self.reset_game()
                     continue
@@ -147,7 +154,7 @@ class TicTacToe:
                     break
 
             if self.ttl_move_count == 9 and not self.winner: # Last move, we'll pick
-                print(f"{self.TheMessages.get_message('red_back', 'play_again')}")
+                print(f"{self.TheMessages.get_message(['red_back'], 'play_again')}")
                 break
 
             the_board = ttt.the_board()
@@ -193,6 +200,7 @@ class TicTacToe:
         else:
             the_color = '\033[37m'
         return the_color
+
 
     def __last_move(self, ):
         """ Determine the last move """

@@ -1,6 +1,7 @@
 - 2 player or computer
 
 - Fix spacing output text
+- Fix text colors
 - Play Again ------------------------------ DONE
 - Enter either x or o --------------------- DONE
 - Enter pos ONLY -------------------------- DONE
@@ -18,10 +19,9 @@
 - Total time to play
 - camelCase or "sn_a_ke" ------------------ DONE
 - make x/o a dict ------------------------- DONE
-- Colors class https://pkg.go.dev/github.com/whitedevops/colors-section-readme
+- Colors class ---------------------------- DONE # https://pkg.go.dev/github.com/whitedevops/colors-section-readme
 - Ctrl + C to quit ------------------------ DONE
 - Display board last move ----------------- DONE
-
 - Demonstrate a comprehension / 1 liner --- DONE
 - Demonstrate a lambda ????
 - Demonstrate classes --------------------- DONE

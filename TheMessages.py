@@ -3,25 +3,23 @@ class TheMessages:
         pass
 
     __dict_colors = {
-        'red':        '\u001b[31m',
-        'red_back':   '\u001b[41m',
+        # Colours
+        'clr_red':        '\u001b[31m',
+        'red_back':       '\u001b[41m',
+        'clr_green':      '\u001b[32m',
+        'green_back':     '\u001b[42m',
+        'clr_blue':       '\u001b[34m',
+        'clr_yellow':     '\u001b[33m',
+        'clr_magenta':    '\u001b[35m',
+        'clr_cyan':       '\u001b[36m',
 
-        'green':      '\u001b[32m',
-        'green_back': '\u001b[42m',
+        # Emphasis
+        'bold':       '\u001b[1m',
+        'underline':  '\u001b[4m',
+        'background': '10',
+        'bright':     ';1m',
 
-        'blue':       '\u001b[34m',
-
-        'yellow':     '\u001b[33m',
-
-        'magenta':    '\u001b[35m',
-        'cyan':       '\u001b[36m',
-
-        'Bold':       '\u001b[1m',
-        'Underline':  '\u001b[4m',
-
-        'bright':     ';1m', # Add brightness
-
-        'end_color':  '\u001b[0m'
+        'end_color':  '\u001b[0m' # Call this at end of string else colour will continue.
     }
 
     __dict_messages = {
@@ -35,7 +33,25 @@ class TheMessages:
         'winner': " WINNER is ",
         'play_again': "Play Again? ('Y'/'N'):"
     }
+    # TODO: key error (not in list), slice
+
 
     def get_message(self, color, message):
-        """ return the message to game. """
-        return self.__dict_colors[color] + self.__dict_messages[message] + self.__dict_colors['end_color']
+        """ Return message with colour for game. """
+        str_color = self.__get_color(color)
+        return str_color + self.__dict_messages[message] + self.__dict_colors['end_color']
+
+
+    def __get_color(self, list_color):
+        """ Bold, underline, background etc... colours for messages. """
+
+        print(self.__dict_colors['clr_red'])
+
+        clr_len = len(list_color)
+        the_clr = ''
+        for count, clr in enumerate(list_color, start=1):
+            the_clr += self.__dict_colors[clr]
+        return the_clr
+
+    def background_color(self):
+        pass
