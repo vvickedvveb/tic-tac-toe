@@ -2,6 +2,7 @@
 
 - Fix spacing output text
 - Fix text colors
+- Auto carriage return
 - Play Again ------------------------------ DONE
 - Enter either x or o --------------------- DONE
 - Enter pos ONLY -------------------------- DONE
@@ -14,7 +15,7 @@
 - Predict last move ----------------------- DONE
 - Board should loop ----------------------- DONE
 - Enhance visual
-- Put messages in dict
+- Put messages in dict -------------------- DONE
 - Time between moves
 - Total time to play
 - camelCase or "sn_a_ke" ------------------ DONE
@@ -28,7 +29,7 @@
 - Improve class, private, dataclass inherit ...
 - Demonstrate a ternary ------------------- DONE
 - Demonstrate itertools -----------
-- Slice ?
+- Slice ----------------------------------- DONE
 - Demonstrate Try ------------------------- DONE
 - Comments -------------------------
 - args / kwargs ??????????????????
