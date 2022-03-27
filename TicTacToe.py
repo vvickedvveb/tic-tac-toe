@@ -187,7 +187,6 @@ class TicTacToe:
             lines = 5
         elif lines > 15:
             lines = 100
-        #else:
         return [print('\n') for i in range(0, lines)]
 
 
