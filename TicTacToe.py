@@ -48,8 +48,12 @@ class TicTacToe:
 
     def the_board(self, ):
         """ Print out the board. """
+
         def __the_board_xo(board_pos):
-            return '| ' + self.__ret_color(board_pos) + str(board_pos) + '\033[0m' + ' |'
+            """ Return the letter with colour else position #. """
+            the_xo_color = self.TheMessages.get_message(['clr_yellow', 'clr_magenta_back'], board_pos) if board_pos == self.__XO['EX'] else self.TheMessages.get_message(['clr_cyan', 'clr_magenta_back'], board_pos) if board_pos == self.__XO['OH'] else board_pos
+            return f'| {the_xo_color} |'
+
         pr_board = ''
         for ct, board_pos in enumerate(self.__board_dict.values(), start=1): pr_board += __the_board_xo(board_pos) + '\n' if ct % 3 == 0 else __the_board_xo(board_pos)
         return pr_board
@@ -58,14 +62,15 @@ class TicTacToe:
         """ Start the game by determining if 'X' or 'O' goes first. """
         if self.player_turn == None:
             #self.__clr_scrn(2)
-            text_input = self.TheMessages.get_message(['clr_yellow_back', 'bright', 'underline', 'clr_magenta'], 'enter_xo')
+            text_input = self.TheMessages.get_message(['clr_magenta_back', 'bright', 'underline', 'clr_cyan'], 'enter_xo') + ' '
             enter_x_o = input(text_input)
             enter_x_o = enter_x_o.upper()
-            if enter_x_o == 'Q': # Exit the game
+            print(self.the_board())
+            if enter_x_o == 'Q':
                 return 'break'
 
             if enter_x_o not in self.__XO.values():
-                print(self.TheMessages.get_message(['clr_red'], 'must_xo'))
+                print(self.TheMessages.get_message(['clr_red', 'clr_yellow_back'], 'must_xo'))
                 return 'continue'
 
             self.player_turn = enter_x_o.upper()
@@ -77,7 +82,7 @@ class TicTacToe:
             enter_pos = self.__last_move()
         else:
             try:
-                enter_pos = input(f"""{self.TheMessages.get_message(['clr_magenta'], 'enter_pos')} '{self.player_turn}' """)
+                enter_pos = input(f"""{self.TheMessages.get_message(['clr_cyan_back', 'bright', 'clr_magenta'], 'enter_pos')} {self.TheMessages.get_message(['clr_magenta_back', 'bright', 'clr_cyan'], self.player_turn)}: """)
             except KeyboardInterrupt:
                 print(f"\n\n{self.TheMessages.get_message(['clr_blue', 'clr_red_back'], 'quit_game')} '{self.player_turn}'\n\n")
                 sys.exit(0)
@@ -101,10 +106,11 @@ class TicTacToe:
     def determine_win(self, ):
         """ Determine 3 in a row for win. """
         for combo in self.__WINNING_COMBO:
-            for el in combo:
-                if self.__board_dict[el] == self.player_turn:
+            for x_or_o in combo:
+                if self.__board_dict[x_or_o] == self.player_turn:
                     self.win_row_count += 1
             if self.win_row_count == 3:
+                self.__clr_scrn(3)
                 print(self.TheMessages.get_message(['clr_green'], 'winner') + self.player_turn.upper() + '\033[0m')
                 self.winner = True
                 print(self.the_board())
@@ -139,7 +145,7 @@ class TicTacToe:
         """ All methods required for gameplay flow. void main() """
         while True:
             if self.winner:
-                play_again = input(f"{self.TheMessages.get_message(['clr_blue'], 'play_again')}")
+                play_again = input(f"{self.TheMessages.get_message(['clr_blue', 'clr_yellow_back'], 'play_again')}")
                 if play_again.upper() == 'Y':
                     self.reset_game()
                     continue
@@ -147,7 +153,7 @@ class TicTacToe:
                     break
 
             if self.ttl_move_count == 9 and not self.winner: # Last move, we'll pick
-                print(f"{self.TheMessages.get_message(['red_back'], 'play_again')}")
+                print(f"{self.TheMessages.get_message(['clr_blue'], 'play_again')}")
                 break
 
             the_board = ttt.the_board()
@@ -181,18 +187,8 @@ class TicTacToe:
             lines = 5
         elif lines > 15:
             lines = 100
-        else:
-            return [print('\n') for i in range(0, lines)]
-
-    def __ret_color(self, board_pos):
-        # TODO: put in another class
-        if board_pos == 'X':
-            the_color = '\033[33m'
-        elif board_pos == 'O':
-            the_color = '\033[36m'
-        else:
-            the_color = '\033[37m'
-        return the_color
+        #else:
+        return [print('\n') for i in range(0, lines)]
 
 
     def __last_move(self, ):

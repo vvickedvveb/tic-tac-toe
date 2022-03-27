@@ -7,23 +7,26 @@ class TheMessages:
 
     __dict_colors = {
         # Colours
-        'clr_red':        '\u001b[31m',
-        'clr_green':      '\u001b[32m',
-        'clr_blue':       '\u001b[34m',
-        'clr_yellow':     '\u001b[33m',
-        'clr_magenta':    '\u001b[35m',
-        'clr_cyan':       '\u001b[36m',
+        'clr_red':     '\u001b[31m',
+        'clr_green':   '\u001b[32m',
+        'clr_blue':    '\u001b[34m',
+        'clr_yellow':  '\u001b[33m',
+        'clr_magenta': '\u001b[35m',
+        'clr_cyan':    '\u001b[36m',
+        'clr_fff':     '\u001b[47m',
 
         # Emphasis
-        'bold':           '\u001b[1m',
-        'underline':      '\u001b[4m',
-        'background':     '10', # Add this value to the colour to make it a background colour.
-        'bright':         ';1m',
+        'bold':        '\u001b[1m',
+        'underline':   '\u001b[4m',
+        'background':  '10', # Add this value to the colour to make it a background colour.
+        'bright':      ';1m',
 
-        'end_color':  '\u001b[0m' # Call at end of string else colour will bleed.
+        'end_color':   '\u001b[0m' # Call at end of string else colour will bleed.
     }
 
     __dict_messages = {
+        'X': 'X',
+        'O': 'O',
         'enter_xo': "Enter 'X' or 'O' to determine who goes first ('Q' to quit):",
         'must_xo' : "You MUST enter either 'x' or 'o'!",
         'enter_pos': "Enter position [1 - 9] for player",
@@ -37,28 +40,32 @@ class TheMessages:
 
 
     def get_message(self, list_color, message):
-        #TODO: keyerror
         """ Get message for input and to display for game.
             Args: list_color (string): List of colours and/or emphasis.
                   message (string): The text to be displayed.
             Returns: string: Text with concatenated colour. """
-        str_color = self.__get_color(list_color)
-        return str_color + self.__dict_messages[message] + self.__dict_colors['end_color']
+        try:
+            str_color = self.__get_color(list_color)
+            return str_color + self.__dict_messages[message] + self.__dict_colors['end_color']
+        except KeyError:
+            return "\u001b[37m" + "There's a message missing, oh well." + self.__dict_colors['end_color'] # white
 
 
     def __get_color(self, list_color):
         """ Bold, underline, background etc... colours for messages. """
-        #TODO: default color, keyerror
         the_clr = ''
 
         def __background_color(clr):
-            """ Background colour. """
-            bg_color = ''
-            bg_color += self.__dict_colors[clr[:-5]][0:2]
-            temp_bg_color = int(self.__dict_colors[clr[:-5]][2:-1]) + int(self.__dict_colors['background'])
-            bg_color += str(temp_bg_color)
-            bg_color += self.__dict_colors[clr[:-5]][-1]
-            return bg_color
+            """ Append '_back' to colour argument to make a background colour e.g: 'clr_red' becomes 'clr_red_back' . """
+            try:
+                bg_color = ''
+                bg_color += self.__dict_colors[clr[:-5]][0:2]
+                temp_bg_color = int(self.__dict_colors[clr[:-5]][2:-1]) + int(self.__dict_colors['background']) # add 10 to make colour background
+                bg_color += str(temp_bg_color)
+                bg_color += self.__dict_colors[clr[:-5]][-1]
+                return bg_color
+            except KeyError:
+                return "\u001b[47m" # white background
 
         def __emph_font(clr):
             """ Add emphasis to non-background colour. """
@@ -83,5 +90,4 @@ class TheMessages:
                 the_clr += __background_color(clr)
             elif clr[0:3] == 'clr' and not clr[-5:] == '_back': # emphasize the font colour
                 the_clr += __emph_font(clr)
-        pprint(the_clr)
         return the_clr
