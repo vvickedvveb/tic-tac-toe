@@ -13,7 +13,8 @@ class TheMessages:
         'clr_yellow':  '\u001b[33m',
         'clr_magenta': '\u001b[35m',
         'clr_cyan':    '\u001b[36m',
-        'clr_fff':     '\u001b[47m',
+        'clr_fff':     '\u001b[37m',
+        'clr_000':     '\u001b[30m',
 
         # Emphasis
         'bold':        '\u001b[1m',
@@ -34,10 +35,9 @@ class TheMessages:
         'again_pos': 'Please enter position [1 - 9]',
         'position': 'Position',
         'played': "already played",
-        'winner': " WINNER is ",
+        'winner': " WINNER IS ",
         'play_again': "Play Again? ('Y'/'N'):"
     }
-
 
     def get_message(self, list_color, message):
         """ Get message for input and to display for game.
@@ -48,8 +48,7 @@ class TheMessages:
             str_color = self.__get_color(list_color)
             return str_color + self.__dict_messages[message] + self.__dict_colors['end_color']
         except KeyError:
-            return "\u001b[37m" + "There's a message missing, oh well." + self.__dict_colors['end_color'] # white
-
+            return self.__dict_colors['clr_fff'] + "There's a message missing." + self.__dict_colors['end_color'] # white
 
     def __get_color(self, list_color):
         """ Bold, underline, background etc... colours for messages. """

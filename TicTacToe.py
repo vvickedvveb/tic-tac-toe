@@ -84,7 +84,9 @@ class TicTacToe:
             try:
                 enter_pos = input(f"""{self.TheMessages.get_message(['clr_cyan_back', 'bright', 'clr_magenta'], 'enter_pos')} {self.TheMessages.get_message(['clr_magenta_back', 'bright', 'clr_cyan'], self.player_turn)}: """)
             except KeyboardInterrupt:
-                print(f"\n\n{self.TheMessages.get_message(['clr_blue', 'clr_red_back'], 'quit_game')} '{self.player_turn}'\n\n")
+                self.__clr_scrn(10)
+                print(f"\n\n{self.TheMessages.get_message(['clr_red_back', 'clr_000'], 'quit_game')}: {self.TheMessages.get_message(['clr_red'], self.player_turn)} ")
+                self.__clr_scrn(2)
                 sys.exit(0)
 
             # Enter only positions on board
@@ -94,7 +96,9 @@ class TicTacToe:
                 return 'continue'
 
             if enter_pos in self.played_pos:
-                print(f"{self.TheMessages.get_message(['clr_red'], 'position')} {enter_pos} {self.TheMessages.get_message(['clr_red'], 'played')}")
+                self.__clr_scrn(2)
+                print(f"{self.TheMessages.get_message(['clr_red', 'clr_fff_back'], 'position')} {enter_pos} {self.TheMessages.get_message(['clr_red', 'clr_fff_back'], 'played')}")
+                self.__clr_scrn(2)
                 return 'continue'
 
         # Register position
@@ -111,7 +115,7 @@ class TicTacToe:
                     self.win_row_count += 1
             if self.win_row_count == 3:
                 self.__clr_scrn(3)
-                print(self.TheMessages.get_message(['clr_green'], 'winner') + self.player_turn.upper() + '\033[0m')
+                print(f"{self.TheMessages.get_message(['clr_green_back', 'clr_000'], 'winner')} {self.TheMessages.get_message(['clr_green'], self.player_turn.upper())}")
                 self.winner = True
                 print(self.the_board())
             self.win_row_count = 0
@@ -142,7 +146,7 @@ class TicTacToe:
         return True
 
     def main(self, ):
-        """ All methods required for gameplay flow. void main() """
+        """ All methods required for gameplay flow. """
         while True:
             if self.winner:
                 play_again = input(f"{self.TheMessages.get_message(['clr_blue', 'clr_yellow_back'], 'play_again')}")
@@ -153,11 +157,11 @@ class TicTacToe:
                     break
 
             if self.ttl_move_count == 9 and not self.winner: # Last move, we'll pick
-                print(f"{self.TheMessages.get_message(['clr_blue'], 'play_again')}")
+                print(f"{self.TheMessages.get_message(['clr_blue'], 'play_again')} ")
                 break
 
             the_board = ttt.the_board()
-            print(the_board)
+            print(the_board) # print board
 
             br_con = ttt.start()
             if br_con == 'break':
@@ -191,7 +195,7 @@ class TicTacToe:
 
 
     def __last_move(self, ):
-        """ Determine the last move """
+        """ Determine the last move. """
         board_keys_set = set(self.__board_dict.keys())
         played_pos_set = set(self.played_pos)
         last_move = board_keys_set.difference(played_pos_set)
