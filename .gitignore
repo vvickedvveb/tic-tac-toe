@@ -5,6 +5,6 @@ lib64
 share
 pyvenv.cfg
 TODO.md
-__pycache__
+/__pycache__
 __pycache__/TheMessages.cpython-39.pyc
 __pycache__/TheMessages.cpython-37.pyc
