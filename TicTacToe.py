@@ -1,7 +1,7 @@
 # !/usr/bin/python
 
 import sys
-from TheMessages import TheMessages
+from classes.TheMessages import TheMessages
 
 class TicTacToe:
     def __init__(self, TheMessages):
