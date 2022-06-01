@@ -20,7 +20,7 @@ source bin/activate
 python TicTacToe.py
 ```
 
-## Rules
+## Play
 - Open a terminal
 - Select '`x`' or '`o`' to start (case insensitive)
 - Enter the position (`1`, `2`, `3`...) for your turn
