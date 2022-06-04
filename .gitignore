@@ -7,4 +7,6 @@ pyvenv.cfg
 TODO.txt
 __pycache__
 */__pycache__/*
+classes/__pycache__
+*/classes/__pycache__/*
 images/._*
