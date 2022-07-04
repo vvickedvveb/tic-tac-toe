@@ -2,7 +2,7 @@
 
 ![2 player, Python Tic Tac Toe](images/python-tic-tac-toe.png "2 player, Python Tic tac Toe")
 
-Just a simple console based, 2 player ***Tac Tac Toe*** game in Python. Attempted to make without looking at others.
+Console based, 2 player ***Tic Tac Toe*** game in Python. Made without looking at others.
 
 ## Install
 *Create a virtual environment*
