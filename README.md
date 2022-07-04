@@ -25,4 +25,8 @@ python TicTacToe.py
 - Select '`x`' or '`o`' to start (case insensitive)
 - Enter the position (`1`, `2`, `3`...) for your turn
 
+## Tests
+```shell
+python -m unittest Test_TicTacToe.py
+```
 # Enjoy!
