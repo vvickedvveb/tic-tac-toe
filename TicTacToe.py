@@ -58,6 +58,7 @@ class TicTacToe:
         for ct, board_pos in enumerate(self.__board_dict.values(), start=1): pr_board += __the_board_xo(board_pos) + '\n' if ct % 3 == 0 else __the_board_xo(board_pos)
         return pr_board
 
+
     def start(self, ):
         """ Start the game by determining if 'X' or 'O' goes first. """
         if self.player_turn == None:
@@ -75,6 +76,7 @@ class TicTacToe:
 
             self.player_turn = enter_x_o.upper()
         return self.player_turn
+
 
     def move(self, ):
         """ Enter & add position to place 'x'/'o' on board. """
@@ -107,6 +109,7 @@ class TicTacToe:
         self.ttl_move_count += 1
         return True
 
+
     def determine_win(self, ):
         """ Determine 3 in a row for win. """
         for combo in self.__WINNING_COMBO:
@@ -121,10 +124,12 @@ class TicTacToe:
             self.win_row_count = 0
         return
 
+
     def turn(self, ):
         """ Switch turn's. """
         self.player_turn = self.__XO['OH'] if self.player_turn == self.__XO['EX'] else self.__XO['EX']
         return self.player_turn
+
 
     def reset_game(self, ):
         """ New game. Keep winning player starts. """
@@ -132,18 +137,9 @@ class TicTacToe:
         self.ttl_move_count = 0
         self.played_pos = []
         self.winner = False
-        self.__board_dict = {
-            '1': 1,
-            '2': 2,
-            '3': 3,
-            '4': 4,
-            '5': 5,
-            '6': 6,
-            '7': 7,
-            '8': 8,
-            '9': 9
-        }
+        self.__board_dict = {k: int(k) for k in self.__board_dict} # reset board
         return True
+
 
     def main(self, ):
         """ All methods required for gameplay flow. """
@@ -178,6 +174,7 @@ class TicTacToe:
             if not self.winner:
                 ttt.turn()
         return
+
 
     """                  """
     """ Méthodes Privées """
